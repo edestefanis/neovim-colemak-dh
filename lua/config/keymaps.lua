@@ -88,3 +88,6 @@ vim.api.nvim_set_keymap("n", "<leader>tf", ":TestFile<CR>", { noremap = true, si
 vim.api.nvim_set_keymap("n", "<leader>ts", ":TestSuite<CR>", { noremap = true, silent = true })   -- Run the entire test suite
 vim.api.nvim_set_keymap("n", "<leader>tl", ":TestLast<CR>", { noremap = true, silent = true })    -- Re-run the last test
 vim.api.nvim_set_keymap("n", "<leader>tv", ":TestVisit<CR>", { noremap = true, silent = true })   -- Visit the last test
+
+vim.keymap.set("n", "<space>fd", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
+
