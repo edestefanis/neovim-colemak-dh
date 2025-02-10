@@ -48,6 +48,10 @@ keymap.set("n", "<C-w>i", "<C-w>l", { desc = "Move to right split" })
 keymap.set("n", "<C-w>n", "<C-w>j", { desc = "Move to split below" })
 keymap.set("n", "<C-w>e", "<C-w>k", { desc = "Move to split above" })
 
+-- Quickfix
+vim.api.nvim_set_keymap('n', '<C-s>n', ':cnext<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-s>e', ':cprev<CR>', { noremap = true, silent = true })
+
 vim.keymap.set("n", "<C-w>-", ":tabnew<CR>")
 
 
