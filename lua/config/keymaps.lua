@@ -2,47 +2,11 @@
 -- ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/config
 local keymap = vim.keymap
 
--- Unmap 'n' and 'N' in normal mode to disable their default search navigation
-keymap.set("n", "n", "", { silent = true }) -- Unmap 'n'
-keymap.set("n", "N", "", { silent = true }) -- Unmap 'N'
-
--- Normal mode mappings
-keymap.set("n", "h", "n", { silent = true })
-keymap.set("n", "H", "N", { silent = true })
-keymap.set("n", "u", "i", { silent = true })
-keymap.set("n", "n", "j", { silent = true }) -- Remap 'n' to 'j'
-keymap.set("n", "e", "k", { silent = true })
-keymap.set("n", "i", "l", { silent = true })
-keymap.set("n", "m", "h", { silent = true })
-keymap.set("n", "z", "u", { silent = true })
-
--- Visual mode mappings
-keymap.set("v", "u", "i", { silent = true })
-keymap.set("v", "n", "j", { silent = true })
-keymap.set("v", "e", "k", { silent = true })
-keymap.set("v", "i", "l", { silent = true })
-keymap.set("v", "m", "h", { silent = true })
-
--- Operator-pending mode mappings
-keymap.set("o", "u", "i", { silent = true })
-keymap.set("o", "n", "j", { silent = true })
-keymap.set("o", "e", "k", { silent = true })
-keymap.set("o", "i", "l", { silent = true })
-keymap.set("o", "m", "h", { silent = true })
-
 
 -- Navigation.
-keymap.set("n", "<leader>n", ":NERDTreeFocus<CR>")
-keymap.set("n", "<C-n>", ":NERDTree<CR>")
-keymap.set("n", "<C-t>", ":NERDTreeToggle<CR>")
-keymap.set("n", "<C-f>", ":NERDTreeFind<CR>")
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "nerdtree",
-  callback = function()
-    keymap.set("n", "n", "j", { buffer = true })
-    keymap.set("n", "e", "k", { buffer = true })
-  end,
-})
+vim.keymap.set("n", "<C-t>", ":NvimTreeToggle<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "<C-f>", ":NvimTreeFindFileToggle<CR>", { silent = true, noremap = true })
+
 keymap.set("n", "<C-w>m", "<C-w>h", { desc = "Move to left split" })
 keymap.set("n", "<C-w>i", "<C-w>l", { desc = "Move to right split" })
 keymap.set("n", "<C-w>n", "<C-w>j", { desc = "Move to split below" })
@@ -75,3 +39,59 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.keymap.set("n", "<space>f", function() vim.lsp.buf.format() end)
+
+-- Remapping mini.ai
+-- vim.keymap.set({ "x", "o" }, "a(", "<cmd>lua MiniAi.select_textobject('a', '(')<CR>")
+-- vim.keymap.set({ "x", "o" }, "i(", "<cmd>lua MiniAi.select_textobject('i', '(')<CR>")
+-- vim.keymap.set({ "x", "o" }, "a)", "<cmd>lua MiniAi.select_textobject('a', ')')<CR>")
+-- vim.keymap.set({ "x", "o" }, "i)", "<cmd>lua MiniAi.select_textobject('i', ')')<CR>")
+-- vim.keymap.set({ "x", "o" }, "a{", "<cmd>lua MiniAi.select_textobject('a', '{')<CR>")
+-- vim.keymap.set({ "x", "o" }, "i{", "<cmd>lua MiniAi.select_textobject('i', '{')<CR>")
+-- vim.keymap.set({ "x", "o" }, "a}", "<cmd>lua MiniAi.select_textobject('a', '}')<CR>")
+-- vim.keymap.set({ "x", "o" }, "i}", "<cmd>lua MiniAi.select_textobject('i', '}')<CR>")
+-- vim.keymap.set({ "x", "o" }, "a[", "<cmd>lua MiniAi.select_textobject('a', '[')<CR>")
+-- vim.keymap.set({ "x", "o" }, "i[", "<cmd>lua MiniAi.select_textobject('i', '[')<CR>")
+-- vim.keymap.set({ "x", "o" }, "a]", "<cmd>lua MiniAi.select_textobject('a', ']')<CR>")
+-- vim.keymap.set({ "x", "o" }, "i]", "<cmd>lua MiniAi.select_textobject('i', ']')<CR>")
+--
+-- vim.keymap.set({ "x", "o" }, "i\"", "<cmd>lua MiniAi.select_textobject('i', '\"')<CR>")
+-- vim.keymap.set({ "x", "o" }, "a\"", "<cmd>lua MiniAi.select_textobject('a', '\"')<CR>")
+-- vim.keymap.set({ "x", "o" }, "i'", "<cmd>lua MiniAi.select_textobject('i', '`')<CR>")
+-- vim.keymap.set({ "x", "o" }, "a'", "<cmd>lua MiniAi.select_textobject('a', '`')<CR>")
+-- vim.keymap.set({ "x", "o" }, "i\'", "<cmd>lua MiniAi.select_textobject('i', '\'')<CR>")
+-- vim.keymap.set({ "x", "o" }, "a\'", "<cmd>lua MiniAi.select_textobject('a', '\'')<CR>")
+--
+-- vim.keymap.set({ "x", "o" }, "i<", "<cmd>lua MiniAi.select_textobject('i', '<')<CR>")
+-- vim.keymap.set({ "x", "o" }, "a<", "<cmd>lua MiniAi.select_textobject('a', '<')<CR>")
+-- vim.keymap.set({ "x", "o" }, "i>", "<cmd>lua MiniAi.select_textobject('i', '>')<CR>")
+-- vim.keymap.set({ "x", "o" }, "a>", "<cmd>lua MiniAi.select_textobject('a', '>')<CR>")
+
+
+-- Easily hit escape in terminal mode.
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
+
+-- Open a terminal at the bottom of the screen with a fixed height.
+vim.keymap.set("n", ",st", function()
+    vim.cmd.new()
+    vim.cmd.wincmd "J"
+    vim.api.nvim_win_set_height(0, 12)
+    vim.wo.winfixheight = true
+    vim.cmd.term()
+end)
+
+vim.keymap.set("n", "<C-r>e", ":resize +2<CR>", { silent = true })
+vim.keymap.set("n", "<C-r>n", ":resize -2<CR>", { silent = true })
+vim.keymap.set("n", "<C-r>m", ":vertical resize -2<CR>", { silent = true })
+vim.keymap.set("n", "<C-r>i", ":vertical resize +2<CR>", { silent = true })
+
+
+
+-- Testing
+vim.api.nvim_set_keymap("n", "<leader>tn", ":TestNearest<CR>", { noremap = true, silent = true }) -- Run the nearest test
+vim.api.nvim_set_keymap("n", "<leader>tf", ":TestFile<CR>", { noremap = true, silent = true })    -- Run tests in the current file
+vim.api.nvim_set_keymap("n", "<leader>ts", ":TestSuite<CR>", { noremap = true, silent = true })   -- Run the entire test suite
+vim.api.nvim_set_keymap("n", "<leader>tl", ":TestLast<CR>", { noremap = true, silent = true })    -- Re-run the last test
+vim.api.nvim_set_keymap("n", "<leader>tv", ":TestVisit<CR>", { noremap = true, silent = true })   -- Visit the last test
+
+vim.keymap.set("n", "<space>fd", ":Telescope file_browser path=%:p:h select_buffer=true<CR>")
+
